@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>簡易パチンコゲーム</title>
+    <style>
+        /* 全体の背景とフォントスタイルの設定 */
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        /* ヘッダーのスタイリング: ゲームタイトル表示用 */
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 24px;
+        }
+
+        /* コントロールパネルのスタイリング: 入力フィールドとボタンのセクション */
+        #controlPanel {
+            background-color: #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 回転ボタンのスタイル */
+        #spinButton {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #spinButton:hover {
+            background-color: #4cae4c;
+        }
+
+        /* 確変中の画像コンテナのスタイリング */
+        #kakuchanImagesContainer {
+            display: none;
+            width: auto;
+            height: 150px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* 確変中の画像のスタイリング */
+        #kakuchanImage, #roundImage {
+            width: 200px;
+            height: 150px;
+            margin-right: 10px;
+        }
+
+        /* その他の要素のスタイリング */
+        /* ... */
+
+        /* 当たり履歴の表示エリアのスタイル設定 */
+        #hitListContainer {
+            width: 200px;
+            height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+        }
+
+        /* Rush中振り分けの表のスタイル設定 */
+        #distributionTable {
+            width: 30%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #distributionTable, #distributionTable th, #distributionTable td {
+            border: 1px solid black;
+        }
+        #distributionTable th, #distributionTable td {
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー部分: ゲームのタイトルを表示 -->
+    <header>簡易パチンコゲーム</header>
+
+    <!-- コントロールパネル: ユーザー入力と操作ボタン -->
+    <div id="controlPanel">
+        <input type="number" id="jackpotOdds" placeholder="通常時大当たり確率">
+        <input type="number" id="rushEntryRate" placeholder="Rush突入率">
+        <input type="number" id="continuationRate" placeholder="継続率">
+        <select id="machineSelect">
+            <option value="">機種を選択してください</option>
+            <option value="test">テスト</option>
+            <option value="rezero">リゼロ</option>
+        </select>
+        <button id="spinButton">回転</button>
+    </div>
+
+    <!-- 回転数を表示するテキストエリア -->
+    <div id="counter">回転数: 0</div>
+
+    <!-- その他のコンテンツ: 大当たり時の音声ファイル、画像、当たり履歴など -->
+    <audio id="jackpotSound" src="resource/juggler.mp3"></audio>
+    
+    <img id="jackpotImage" src="resource/black.png">
+
+    <!-- 当たり履歴を表示するスクロールエリア -->
+    <div id="hitListContainer">
+        <ul id="hitList"></ul>
+    </div>
+
+    <!-- 確変中表示テキストエリア -->
+    <div id="modeDisplay"></div>
+
+    <!-- 確変中の追加画像コンテナ（非表示で初期化） -->
+    <div id="kakuchanImagesContainer">
+        <img id="kakuchanImage" src="resource/GOD.png">
+        <img id="roundImage" src="resource/wait.png">
+    </div>
+
+    <!-- JUDGEMENT画像（初期は非表示） -->
+    <img id="judgementImage" src="resource/JUDGEMENT.png">
+
+    <!-- Rush中振り分けを設定する表 -->
+    <table id="distributionTable">
+        <thead>
+            <tr>
+                <th>ラウンド数(出球)</th>
+                <th>振り分け(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" name="rounds[]"></td>
+                <td><input type="number" name="distribution[]"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="addRowButton">行を追加</button>
+
+    <!-- JavaScriptファイル -->
+    <script src="web_create_test.js"></script>
+</body>
+</html>
+    
