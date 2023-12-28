@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>簡易パチンコゲーム</title>
+    <style>
+        /* 当たり履歴の表示エリアのスタイル設定 */
+        #hitListContainer {
+            width: 200px;
+            height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+        }
+
+        /* Rush中振り分けの表のスタイル設定 */
+        #distributionTable {
+            width: 30%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #distributionTable, #distributionTable th, #distributionTable td {
+            border: 1px solid black;
+        }
+        #distributionTable th, #distributionTable td {
+            padding: 5px;
+            text-align: center;
+        }
+        /* 確変中の追加画像コンテナのスタイリング */
+        #kakuchanImagesContainer {
+            display: none; /* 初期状態は非表示 */
+            width: auto;
+            height: 150px; /* 高さを固定 */
+            margin-top: 10px; /* 上部に余白を設ける */
+        }
+
+        /* 確変中の追加画像のスタイリング */
+        #kakuchanImage, #roundImage {
+            width: 200px; /* 幅を200pxに固定 */
+            height: 150px; /* 高さを150pxに固定 */
+            margin-right: 10px; /* 右に余白を設ける */
+        }
+
+        /* 機種選択と回転ボタンのコンテナスタイリング */
+        #controlPanel {
+            margin-bottom: 10px; /* 下部に余白を設ける */
+        }
+    </style>
+</head>
+<body>
+    <!-- ユーザー入力フィールド -->
+    <input type="number" id="jackpotOdds" placeholder="通常時大当たり確率">
+    <input type="number" id="rushEntryRate" placeholder="Rush突入率">
+    <input type="number" id="continuationRate" placeholder="継続率">
+
+    <!-- 機種選択のトグルリスト -->
+    <select id="machineSelect">
+        <option value="">機種を選択してください</option>
+        <option value="test">テスト</option>
+        <option value="rezero">リゼロ</option>
+    </select>
+
+    <!-- 回転ボタン -->
+    <button id="spinButton">回転</button>
+
+    <!-- 回転数を表示するテキストエリア -->
+    <div id="counter">回転数: 0</div>
+
+    <!-- 大当たり時の音声ファイル -->
+    <audio id="jackpotSound" src="resource/juggler.mp3"></audio>
+
+    <!-- 大当たり時の画像表示エリア -->
+    <img id="jackpotImage" src="resource/black.png">
+
+    <!-- 当たり履歴を表示するスクロールエリア -->
+    <div id="hitListContainer">
+        <ul id="hitList"></ul>
+    </div>
+
+    <!-- 確変中表示テキストエリア -->
+    <div id="modeDisplay"></div>
+
+    <!-- 確変中の追加画像コンテナ（非表示で初期化） -->
+    <div id="kakuchanImagesContainer" style="display: none; width: auto; height: 150px;">
+        <img id="kakuchanImage" src="resource/GOD.png" style="width: 200px; height: 150px; margin-right: 10px;">
+        <img id="roundImage" src="resource/wait.png" style="width: 200px; height: 150px;">
+    </div>
+
+    <!-- JUDGEMENT画像（初期は非表示） -->
+    <img id="judgementImage" src="resource/JUDGEMENT.png" style="display: none; width: 200px; height: 100px;">
+
+
+    <!-- Rush中振り分けを設定する表 -->
+    <table id="distributionTable">
+        <thead>
+            <tr>
+                <th>ラウンド数(出球)</th>
+                <th>振り分け(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" name="rounds[]"></td>
+                <td><input type="number" name="distribution[]"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="addRowButton">行を追加</button>
+
+    <!-- JavaScriptファイル -->
+    <script src="web_create_test.js"></script>
+</body>
+</html>
